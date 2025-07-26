@@ -1,0 +1,9 @@
+vars:
+  - name: ART_VER
+    value: "0.7.2"
+  - name: ART_SVR 
+    value: "https://dy-sec-generic.pkg.coding.net/galaxy-open"
+  - name:  PORT_PRJ
+    value: "${HOME}/devspace/galaxy-flow"
+  - name: ART_PATH 
+    value: "${GXL_PRJ_ROOT}/artifacts"

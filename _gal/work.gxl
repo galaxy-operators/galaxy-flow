@@ -1,0 +1,14 @@
+extern mod mod_ops { git =  "https://cnb.cool/dy-sec/galaxy-open/ds-ops-gxl.git"; channel = "main"; }
+mod envs : {
+    env  _common {
+        module_env = "default";
+    }
+    env arm_mac : _common {
+        model = "arm-mac14-host";
+    }
+    env x86_ubt : _common {
+        model = "x86-ubt22-host";
+    }
+
+}
+mod main :  mod_ops {}

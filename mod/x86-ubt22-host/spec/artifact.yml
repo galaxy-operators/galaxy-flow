@@ -1,0 +1,9 @@
+- name: gflow
+  addr:
+    url: "{{ART_SVR}}/ubuntu22/gflow?version={{ART_VER}}"
+  local: gflow
+- name: gprj
+  addr:
+    url: "{{ART_SVR}}/ubuntu22/gprj?version={{ART_VER}}"
+  local: gprj
+

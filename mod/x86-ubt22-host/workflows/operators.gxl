@@ -1,0 +1,27 @@
+extern mod mod_ops { git =  "https://cnb.cool/dy-sec/galaxy-open/ds-ops-gxl.git", branch= "${GXL_OPS_CH:main}" };
+mod operators : empty_operators {
+
+    #[auto_load(entry)]
+    flow __into {
+      gx.read_file( file : "./values/_used.json" ,  name : "SETTING" ) ;
+    }
+    #[task(name="ds-ops@mac-host:install")]
+    flow install {
+      art_local = "${SETTING.ART_PATH}";
+      gx.cmd  ( cmd : "mkdir -p ${HOME}/download" );
+      ```cmd
+         cp ${ART_LOCAL}/g* ${HOME}/bin/ ; chmod +x ${HOME}/bin/g*;
+      ```
+    }
+    flow download {
+          mod_local = "./local";
+          art_local = "${SETTING.ART_PATH}";
+          gx.echo ("mod-local: ${mod_local}");
+          gx.read_file( file : "${mod_local}/artifact.yml" ,  name : "ART" ) ;
+          gx.cmd ( "mkdir -p ${ART_LOCAL}");
+          for ${ITEM} in ${ART} {
+              gx.echo ("art: ${ITEM.NAME}  URL:${ITEM.ADDR.URL}");
+              gx.download ( url : "${ITEM.ADDR.URL}" , local_file : "${ART_LOCAL}/${ITEM.NAME}" );
+          }
+    }
+}

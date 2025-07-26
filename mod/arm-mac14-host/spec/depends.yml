@@ -1,0 +1,7 @@
+dep_root: ${GXL_PRJ_ROOT}/common
+deps:
+  - addr:
+      repo: git@e.coding.net:dy-sec/s-devkit/dy-mod-center.git
+      path: common/gxl
+    local: ""
+    enable: true

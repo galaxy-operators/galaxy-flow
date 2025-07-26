@@ -1,0 +1,30 @@
+
+mod local_rust_port {
+
+    flow pub_conf {
+      //read AFT_SVR, PORT_PRJ;
+      gx.read_file ( "./used.json");
+      gx.ver ( file : "${PORT_PRJ}/version.txt", inc: "null" );
+      gx.echo (  "version  :${VERSION}" );
+      gx.echo (  "port_prj :${PORT_PRJ}" );
+
+    }
+    flow pub_pkg  {
+      gx.echo (  "pub ${PUB_ART_PKG} to dysec " );
+      gx.upload (
+          url : "${AFT_SVR}/${REPO_NAME}/${PUB_ART_PKG}?version=${VERSION}",
+          username : "${SEC_AFT_SVR_LOGIN}",
+          password : "${SEC_AFT_SVR_PASSWORD}",
+          method : "PUT",
+          local_file : "${PORT_PRJ}/target/release/${PUB_ART_PKG}"
+      );
+      gx.upload (
+          url : "${AFT_SVR}/${REPO_NAME}/${PUB_ART_PKG}_latest_version.txt?version=latest",
+          username : "${SEC_AFT_SVR_LOGIN}",
+          password : "${SEC_AFT_SVR_PASSWORD}",
+          method : "PUT",
+          local_file : "${PORT_PRJ}/version.txt"
+      );
+    }
+    
+}

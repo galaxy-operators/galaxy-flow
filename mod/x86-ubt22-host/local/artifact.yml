@@ -1,0 +1,9 @@
+- name: gflow
+  addr:
+    url: "https://dy-sec-generic.pkg.coding.net/galaxy-open/ubuntu22/gflow?version=0.7.2"
+  local: gflow
+- name: gprj
+  addr:
+    url: "https://dy-sec-generic.pkg.coding.net/galaxy-open/ubuntu22/gprj?version=0.7.2"
+  local: gprj
+
