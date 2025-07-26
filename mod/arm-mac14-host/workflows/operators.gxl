@@ -1,4 +1,4 @@
-extern mod mod_ops { git =  "https://cnb.cool/dy-sec/galaxy-open/ds-ops-gxl.git", branch= "${GXL_OPS_CH:main}" };
+extern mod mod_ops { git =  "https://github.com/galaxy-operators/ops-gxl.git", channel = "${GXL_OPS_CH:main}" }
 mod operators : empty_operators {
 
     #[auto_load(entry)]

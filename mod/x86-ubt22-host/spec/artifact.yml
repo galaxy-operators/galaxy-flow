@@ -1,6 +1,6 @@
 - name: gflow
   addr:
-    url: "{{ART_SVR}}/ubuntu22/gflow?version={{ART_VER}}"
+    url: https://github.com/galaxy-sec/galaxy-flow/releases/download/v0.8.4/galaxy-flow-v0.8.4-aarch64-apple-darwin.tar.gz
   local: gflow
 - name: gprj
   addr:
