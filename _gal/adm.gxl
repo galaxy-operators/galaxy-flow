@@ -1,4 +1,4 @@
-extern mod cfm { git =  "https://cnb.cool/dy-sec/galaxy-open/gxl-ports.git"; channel = "alpha"; }
+extern mod ver,git,ver_adm { git = "https://github.com/galaxy-operators/cfm-gxl.git", channel = "${GXL_CHANNEL:main}" }
 mod  envs {
   env default {
   }

@@ -1,9 +1,7 @@
 vars:
   - name: ART_VER
-    value: "0.7.2"
-  - name: ART_SVR 
-    value: "https://dy-sec-generic.pkg.coding.net/galaxy-open"
-  - name:  PORT_PRJ
-    value: "${HOME}/devspace/galaxy-flow"
+    value: "0.8.4"
+  - name: ART_REPO 
+    value: "https://github.com/galaxy-sec/galaxy-flow/releases/download"
   - name: ART_PATH 
     value: "${GXL_PRJ_ROOT}/artifacts"

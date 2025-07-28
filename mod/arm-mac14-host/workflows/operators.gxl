@@ -1,4 +1,4 @@
-extern mod mod_ops { git =  "https://cnb.cool/dy-sec/galaxy-open/ds-ops-gxl.git", branch= "${GXL_OPS_CH:main}" };
+extern mod mod_ops { git =  "https://github.com/galaxy-operators/ops-gxl.git", channel = "${GXL_CHANNEL_OPS:main}" }
 mod operators : empty_operators {
 
     #[auto_load(entry)]
@@ -7,8 +7,7 @@ mod operators : empty_operators {
     }
     #[task(name="ds-ops@mac-host:install")]
     flow install {
-      art_local = "${SETTING.ART_PATH}";
-      gx.cmd  ( cmd : "mkdir -p ${HOME}/download" );
+      art_local = "${SETTING.ART_PATH}/temp/artifacts/";
       ```cmd
          cp ${ART_LOCAL}/g* ${HOME}/bin/ ; chmod +x ${HOME}/bin/g*;
       ```
@@ -18,10 +17,11 @@ mod operators : empty_operators {
           art_local = "${SETTING.ART_PATH}";
           gx.echo ("mod-local: ${mod_local}");
           gx.read_file( file : "${mod_local}/artifact.yml" ,  name : "ART" ) ;
-          gx.cmd ( "mkdir -p ${ART_LOCAL}");
+          gx.cmd ( "mkdir -p ${ART_LOCAL}/temp");
           for ${ITEM} in ${ART} {
-              gx.echo ("art: ${ITEM.NAME}  URL:${ITEM.ADDR.URL}");
-              gx.download ( url : "${ITEM.ADDR.URL}" , local_file : "${ART_LOCAL}/${ITEM.NAME}" );
+              gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.ADDR.URL}");
+              gx.download ( url : "${ITEM.ADDR.URL}" , local_file : "${ART_LOCAL}/${ITEM.LOCAL}" );
+              gx.untar ( file : "${ART_LOCAL}/${ITEM.LOCAL}" , dst : "${ART_LOCAL}/temp");
           }
     }
 }
