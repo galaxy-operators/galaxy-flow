@@ -4,4 +4,10 @@ mod  envs {
   }
 }
 mod main  : ver_adm {
+
+  flow use_tpl {
+    RUN_TARGET= "aarch64-apple-darwin";
+    ART_REPO = "{{ART_REPO}}";
+    gx.tpl( file : "./tpl/artifact.yml" , dst: "./mod/arm-mac14-host/spec/artifact.yml" );
+  }
 }
