@@ -12,12 +12,14 @@ mod main  : ver_adm {
 
   flow  _use_tpl_mac {
     RUN_TARGET= "aarch64-apple-darwin";
-    gx.tpl( tpl: "./tpl/artifact.yml" , dst: "./mod/arm-mac14-host/spec/artifact.yml" );
+    gx.tpl( tpl: "./tpl/artifact.yml" ,  dst: "./mod/arm-mac14-host/spec/artifact.yml" );
     gx.tpl( tpl: "./tpl/operators.gxl" , dst: "./mod/arm-mac14-host/workflows/operators.gxl" );
+    gx.tpl( tpl: "./tpl/vars.yml" ,      dst: "./mod/arm-mac14-host/vars.yml" );
   }
   flow  _use_tpl_utn {
     RUN_TARGET= "x86_64-unknown-linux-gnu";
-    gx.tpl( tpl: "./tpl/artifact.yml" , dst: "./mod/x86-ubt22-host/spec/artifact.yml" );
-    gx.tpl( tpl: "./tpl/operators.gxl" , dst: "./mod/x86-ubt22-host/workflows/operators.gxl" );
+    gx.tpl( tpl: "./tpl/artifact.yml" ,   dst: "./mod/x86-ubt22-host/spec/artifact.yml" );
+    gx.tpl( tpl: "./tpl/operators.gxl" ,  dst: "./mod/x86-ubt22-host/workflows/operators.gxl" );
+    gx.tpl( tpl: "./tpl/vars.yml" ,       dst: "./mod/x86-ubt22-host/vars.yml" );
   }
 }
