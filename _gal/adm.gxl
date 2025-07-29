@@ -5,8 +5,7 @@ mod  envs {
 }
 mod main  : ver_adm {
 
-  #[auto_load(exit)]
-  flow  ver.use | @use_tpl | _use_tpl_mac  | _use_tpl_utn {
+  flow  ver.use | @update_spec | _use_tpl_mac  | _use_tpl_utn {
     ART_REPO = "{{ART_REPO}}";
     ART_CACHE_REPO = "{{ART_CACHE_REPO}}";
   }
@@ -14,11 +13,11 @@ mod main  : ver_adm {
   flow  _use_tpl_mac {
     RUN_TARGET= "aarch64-apple-darwin";
     gx.tpl( tpl: "./tpl/artifact.yml" , dst: "./mod/arm-mac14-host/spec/artifact.yml" );
-    gx.tpl( tpl: "./tpl/operators.gxl" , dst: "./mod/arm-mac14-host/workflows/artifact.yml" );
+    gx.tpl( tpl: "./tpl/operators.gxl" , dst: "./mod/arm-mac14-host/workflows/operators.gxl" );
   }
   flow  _use_tpl_utn {
     RUN_TARGET= "x86_64-unknown-linux-gnu";
     gx.tpl( tpl: "./tpl/artifact.yml" , dst: "./mod/x86-ubt22-host/spec/artifact.yml" );
-    gx.tpl( tpl: "./tpl/operators.gxl" , dst: "./mod/x86-ubt22-host/workflows/artifact.yml" );
+    gx.tpl( tpl: "./tpl/operators.gxl" , dst: "./mod/x86-ubt22-host/workflows/operators.gxl" );
   }
 }
