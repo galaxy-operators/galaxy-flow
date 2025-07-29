@@ -20,11 +20,12 @@ mod operators : empty_operators {
           gx.read_file( file : "${mod_local}/artifact.yml" ,  name : "ART" ) ;
           gx.cmd ( "mkdir -p ${ART_LOCAL}/temp");
           for ${ITEM} in ${ART} {
-              gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.ADDR.URL}");
               if defined(${ITEM.CACHE_ENABLE}) && ${ITEM.CACHE_ENABLE} == true  && defined(${ITEM.CACHE_ADDR.URL}) {
+                gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.CACHE_ADDR.URL}");
                 gx.download ( url : "${ITEM.CACHE_ADDR.URL}" , local_file : "${ART_LOCAL}/${ITEM.LOCAL}" );
               } else {
-                gx.download ( url : "${ITEM.ADDR.URL}" , local_file : "${ART_LOCAL}/${ITEM.LOCAL}" );
+                gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.ORIGIN_ADDR.URL}");
+                gx.download ( url : "${ITEM.ORIGIN_ADDR.URL}" , local_file : "${ART_LOCAL}/${ITEM.LOCAL}" );
               }
               gx.untar ( file : "${ART_LOCAL}/${ITEM.LOCAL}" , dst : "${ART_LOCAL}/temp");
           }
