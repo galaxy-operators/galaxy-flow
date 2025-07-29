@@ -6,4 +6,3 @@
   cache_addr :
     url: "{{ART_CACHE_REPO}}"
   local: galaxy-flow.tar.gz
-
