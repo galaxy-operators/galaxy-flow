@@ -1,4 +1,22 @@
 extern mod mod_ops { git =  "https://github.com/galaxy-operators/ops-gxl.git", channel = "${GXL_CHANNEL_OPS:main}" }
+mod ops_impl {
+
+    fn download_tar( artifacts, art_local  )  {
+          download_path = "${HOME}/ds-download/";
+          for ${ITEM} in ${ARTIFACTS} {
+              if defined(${ITEM.CACHE_ENABLE}) && ${ITEM.CACHE_ENABLE} == true  && defined(${ITEM.CACHE_ADDR.URL}) {
+                gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.CACHE_ADDR.URL}");
+                gx.download ( url : "${ITEM.CACHE_ADDR.URL}" , local_file : "${DOWNLOAD_PATH}/${ITEM.LOCAL}" );
+              } else {
+                gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.ORIGIN_ADDR.URL}");
+                gx.download ( url : "${ITEM.ORIGIN_ADDR.URL}" , local_file : "${DOWNLOAD_PATH}/${ITEM.LOCAL}" );
+              }
+              gx.untar ( file : "${DOWNLOAD_PATH}/${ITEM.LOCAL}" , dst : "${ART_LOCAL}");
+              //gx.cmd ( "cp ${ART_LOCAL}/temp/* ${ART_LOCAL}/");
+          }
+    }
+
+}
 mod operators : empty_operators {
 
     #[auto_load(entry)]
@@ -18,16 +36,6 @@ mod operators : empty_operators {
           art_local = "${SETTING.ART_PATH}";
           gx.echo ("mod-local: ${mod_local}");
           gx.read_file( file : "${mod_local}/artifact.yml" ,  name : "ART" ) ;
-          gx.cmd ( "mkdir -p ${ART_LOCAL}/temp");
-          for ${ITEM} in ${ART} {
-              if defined(${ITEM.CACHE_ENABLE}) && ${ITEM.CACHE_ENABLE} == true  && defined(${ITEM.CACHE_ADDR.URL}) {
-                gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.CACHE_ADDR.URL}");
-                gx.download ( url : "${ITEM.CACHE_ADDR.URL}" , local_file : "${ART_LOCAL}/${ITEM.LOCAL}" );
-              } else {
-                gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.ORIGIN_ADDR.URL}");
-                gx.download ( url : "${ITEM.ORIGIN_ADDR.URL}" , local_file : "${ART_LOCAL}/${ITEM.LOCAL}" );
-              }
-              gx.untar ( file : "${ART_LOCAL}/${ITEM.LOCAL}" , dst : "${ART_LOCAL}/temp");
-          }
+          ops_impl.download_tar(${ART},${ART_LOCAL});
     }
 }
