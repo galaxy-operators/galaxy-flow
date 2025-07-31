@@ -1,41 +1,26 @@
-extern mod mod_ops { git =  "https://github.com/galaxy-operators/ops-gxl.git", channel = "${GXL_CHANNEL_OPS:main}" }
-mod ops_impl {
+extern mod mod_ops,ops_utls { git =  "https://github.com/galaxy-operators/ops-gxl.git", branch = "${GXL_CHANNEL_OPS:beta}" }
 
-    fn download_tar( artifacts, art_local  )  {
-          download_path = "${HOME}/ds-download/";
-          for ${ITEM} in ${ARTIFACTS} {
-              if defined(${ITEM.CACHE_ENABLE}) && ${ITEM.CACHE_ENABLE} == true  && defined(${ITEM.CACHE_ADDR.URL}) {
-                gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.CACHE_ADDR.URL}");
-                gx.download ( url : "${ITEM.CACHE_ADDR.URL}" , local_file : "${DOWNLOAD_PATH}/${ITEM.LOCAL}" );
-              } else {
-                gx.echo ("art: ${ITEM.LOCAL}  URL:${ITEM.ORIGIN_ADDR.URL}");
-                gx.download ( url : "${ITEM.ORIGIN_ADDR.URL}" , local_file : "${DOWNLOAD_PATH}/${ITEM.LOCAL}" );
-              }
-              gx.untar ( file : "${DOWNLOAD_PATH}/${ITEM.LOCAL}" , dst : "${ART_LOCAL}");
-              //gx.cmd ( "cp ${ART_LOCAL}/temp/* ${ART_LOCAL}/");
-          }
-    }
-
-}
 mod operators : empty_operators {
 
     #[auto_load(entry)]
     flow __into {
       gx.read_file( file : "./values/_used.json" ,  name : "SETTING" ) ;
     }
-    #[task(name="ds-ops@install")]
+    #[task(name="galaxy-flow@install")]
     flow install {
-      art_local = "${SETTING.ART_PATH}/temp/artifacts/";
+      art_local = "${SETTING.ART_PATH}";
       ```cmd
          cp ${ART_LOCAL}/g* ${HOME}/bin/ ; chmod +x ${HOME}/bin/g*;
       ```
     }
-     #[task(name="ds-ops@download")]
+     #[task(name="galaxy-flow@download")]
     flow download {
           mod_local = "./local";
           art_local = "${SETTING.ART_PATH}";
           gx.echo ("mod-local: ${mod_local}");
           gx.read_file( file : "${mod_local}/artifact.yml" ,  name : "ART" ) ;
-          ops_impl.download_tar(${ART},${ART_LOCAL});
+          ops_utls.download_tar(artifacts: ${ART},art_local:${ART_LOCAL});
+          gx.cmd ( "mv ${ART_LOCAL}/artifacts/* ${ART_LOCAL}/");
+          gx.cmd ( "rm -rf ${ART_LOCAL}/artifacts ");
     }
 }
