@@ -1,7 +1,7 @@
 - name: gflow
-  version: v0.8.5
+  version: v0.10.2
   origin_addr:
-    url: "{{ART_REPO}}/v0.8.5/galaxy-flow-v0.8.5-x86_64-unknown-linux-gnu.tar.gz"
+    url: "{{ART_REPO}}/v0.10.2/galaxy-flow-v0.10.2-x86_64-unknown-linux-gnu.tar.gz"
   cache_enable: false  
   cache_addr :
     url: "{{ART_CACHE_REPO}}"
