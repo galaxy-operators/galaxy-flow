@@ -4,7 +4,7 @@ mod operators : empty_operators {
 
     #[auto_load(entry)]
     flow __into {
-      gx.read_file( file : "./values/_used.json" ,  name : "SETTING" ) ;
+      gx.read_file( file : "./_used.json" ,  name : "SETTING" ) ;
     }
     #[task(name="galaxy-flow@install")]
     flow install {
