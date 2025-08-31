@@ -1,6 +1,15 @@
 immutable:
   - name: ART_REPO 
     value: "https://github.com/galaxy-sec/galaxy-flow/releases/download"
+module:
+  - name: stable_ver 
+    value: "v0.10.7"
+  - name: beta_ver 
+    value: "v0.10.8-beta"
+  - name: alpha_ver 
+    value: "v0.11.0-alpha"
+  - name: used_ver
+    value: ${BETA_VER}
 system:
   - name: ART_PATH 
     value: "${GXL_PRJ_ROOT}/artifacts"

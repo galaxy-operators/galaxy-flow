@@ -1,8 +1,8 @@
 - name: gflow
   version: v{{VERSION}}
   origin_addr:
-    url: "{{ART_REPO}}/v{{VERSION}}/galaxy-flow-v{{VERSION}}-{{RUN_TARGET}}.tar.gz"
+    url: "{{ART_REPO}}/${USED_VER}/galaxy-flow-${USED_VER}-{{RUN_TARGET}}.tar.gz"
   cache_enable: false  
   cache_addr :
     url: "{{ART_CACHE_REPO}}"
-  local: galaxy-flow-v{{VERSION}}.tar.gz
+  local: galaxy-flow-${USED_VER}.tar.gz

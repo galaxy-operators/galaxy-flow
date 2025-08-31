@@ -4,7 +4,7 @@ mod operators : empty_operators {
 
     #[auto_load(entry)]
     flow __into {
-      gx.read_file( file : "./values/_used.json" ,  name : "SETTING" ) ;
+      gx.read_file( file : "./_used.json" ,  name : "SETTING" ) ;
     }
     #[task(name="galaxy-flow@install")]
     flow install {
@@ -17,6 +17,7 @@ mod operators : empty_operators {
     flow download {
           mod_local = "./local";
           art_local = "${SETTING.ART_PATH}";
+          used_ver = "${SETTING.USED_VER}";
           untar_local = "${SETTING.ART_PATH}/unpack";
           gx.cmd ( "mkdir -p ${ART_LOCAL}");
           gx.echo ("mod-local: ${mod_local}");
